@@ -1,0 +1,74 @@
+Solving problems using array functions on rest countries data. Using index.html and script.js file using rest countries api
+
+1. - Get all the countries from Asia continent /region using Filter function
+
+Solution:
+var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data=JSON.parse(this.response)
+    console.log(data);
+    var res = data.filter((ele)=>ele.region==="Asia");
+    console.log(res);
+}
+
+2. - Get all the countries with population of less than 2 lacs using Filter function
+
+Solution:
+var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data=JSON.parse(this.response)
+    console.log(data);
+    var res = data.filter((ele)=>ele.population<200000);
+    console.log(res);
+}
+
+3. - Print the country which use US Dollars as currency.
+
+Solution:
+var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data=JSON.parse(this.response)
+    console.log(data);
+    let curr=data.filter((ele)=>{
+        for(var i in ele.currencies){
+            if(ele.currencies[i].code==='USD'){
+                return true;
+            }
+        }
+    }).map(ele => console.log(ele.name));
+}
+
+4. - Print the sum of total population of all countries using reduce function 
+
+Solution:
+var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data=JSON.parse(this.response)
+    console.log(data);
+    var res = data.reduce(function foo(accumulator,element){
+        return accumulator+element.population;
+    },0);
+    console.log(res);
+}
+
+5.- Get the country Name, Capital, Flag by using forEach
+
+Solution:
+var request = new XMLHttpRequest();
+request.open('GET','https://restcountries.eu/rest/v2/all',true);
+request.send();
+request.onload = function(){
+    var data=JSON.parse(this.response)
+    console.log(data);
+    data.forEach(element=>{
+        console.log(element.name+" "+element.capital+" "+element.flag);
+    })
+}
